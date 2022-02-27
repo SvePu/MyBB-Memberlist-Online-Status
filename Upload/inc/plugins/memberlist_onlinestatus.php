@@ -65,7 +65,7 @@ function memberlist_onlinestatus_activate()
     }
 
     require_once MYBB_ROOT . 'inc/adminfunctions_templates.php';
-    find_replace_templatesets('memberlist_user', '#' . preg_quote('{$user[\'userstars\']}') . '#', "{\$user['userstars']}\n{\$user['onlinestatus_container']}");
+    find_replace_templatesets('memberlist_user', '#' . preg_quote('{$user[\'userstars\']}') . '#', "{\$user['userstars']}\n{\$user['user_onlinestatus']}");
 }
 
 function memberlist_onlinestatus_deactivate()
@@ -74,13 +74,12 @@ function memberlist_onlinestatus_deactivate()
     $db->delete_query('templates', "title IN ('memberlist_user_onlinestatus', 'memberlist_user_away', 'memberlist_user_offline', 'memberlist_user_online')");
 
     require MYBB_ROOT . '/inc/adminfunctions_templates.php';
-    find_replace_templatesets('memberlist_user', '#' . preg_quote("\n{\$user['onlinestatus_container']}") . '#', '');
+    find_replace_templatesets('memberlist_user', '#' . preg_quote("\n{\$user['user_onlinestatus']}") . '#', '');
 }
 
 function memberlist_onlinestatus_run(&$user)
 {
     global $mybb, $templates, $lang;
-    $lang->load('global');
     $timecut = TIME_NOW - $mybb->settings['wolcutoff'];
     if ($user['lastactive'] > $timecut && ($user['invisible'] != 1 || $mybb->usergroup['canviewwolinvis'] == 1) && $user['lastvisit'] != $user['lastactive'])
     {
@@ -99,5 +98,5 @@ function memberlist_onlinestatus_run(&$user)
         }
     }
 
-    eval("\$user['onlinestatus_container'] = \"" . $templates->get("memberlist_user_onlinestatus") . "\";");
+    eval("\$user['user_onlinestatus'] = \"" . $templates->get("memberlist_user_onlinestatus") . "\";");
 }
