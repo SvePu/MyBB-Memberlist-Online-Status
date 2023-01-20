@@ -34,7 +34,7 @@ function memberlist_onlinestatus_info()
         'website'       => 'https://github.com/SvePu/MyBB-Memberlist-Online-Status',
         'author'        => 'SvePu',
         'authorsite'    => 'https://github.com/SvePu',
-        'version'       => '1.0',
+        'version'       => '1.1',
         'codename'      => 'memberlistonlinestatus',
         'compatibility' => '18*'
     );
